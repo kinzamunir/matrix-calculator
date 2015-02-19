@@ -1,0 +1,130 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <stdio.h>
+using namespace std;
+
+//global variables that store rows and columns of matrixes and the result
+int rows[5]={1,1,1,1,1};
+int columns[5]={1,1,1,1,1};
+int Aresult[20][20]={-1};
+int Sresult[20][20]={-1};
+int Mresult[20][20]={-1};
+
+int addition(int a1[20][20], int b1[20][20])
+{
+	int c, d = 0;
+
+	//Laws of matrix addition says rows and columns of the two matrix must be the same
+	if(rows[0]!=rows[1] || columns[0]!=columns[1]){
+
+		cout<< "Two matrixes do not follow law of addition."<<endl;
+		rows[2]=0;
+		columns[2]=0;
+		return -1;
+	}
+
+	//calculating and storing result in the result array
+	for (c = 0; c < rows[0]; c++)
+	for (d = 0; d < columns[0]; d++)
+		Aresult[c][d] = a1[c][d] + b1[c][d];
+
+	//printing result
+	cout << "Sum is:" << endl;
+	for (c = 0; c < rows[0]; c++)
+	{
+		for (d = 0; d < columns[0]; d++)
+		{
+		cout << Aresult[c][d] << "\t";
+		}
+
+		cout << endl;
+	}
+
+	//saving the rows and columns of result matrix
+	rows[2]=rows[0];
+	columns[2]=columns[0];
+	return 0;
+
+}
+
+int subtraction(int a1[20][20], int b1[20][20])
+{
+	//Laws of matrix subtraction says rows and columns of the two matrix must be the same
+	if(rows[0]!=rows[1] || columns[0]!=columns[1]){
+
+		cout<< "Two matrixes do not follow law of subtraction."<<endl;
+		rows[3]=0;
+		columns[3]=0;
+
+		return -1;
+	}
+	int c, d = 0;
+
+	//performing subtraction and storing in result array
+	for (c = 0; c < rows[0]; c++)
+	for (d = 0; d < columns[0]; d++)
+		Sresult[c][d] = a1[c][d] - b1[c][d];
+
+	//printing result
+	cout << "Subtraction is:" << endl;
+	for (c = 0; c < rows[0]; c++)
+	{
+		for (d = 0; d < columns[0]; d++)
+		{
+				
+		cout << Sresult[c][d] << "\t";
+		}
+		cout << endl;
+	}
+
+	//storing rows and columns of result array
+	rows[3]=rows[0];
+	columns[3]=columns[0];
+	return 0;
+}
+
+int multiplication(int a1[20][20], int b1[20][20]){
+
+   //Laws of multiplication says that columns of 1st matrix must be equal to row of 2nd matrix
+	if(columns[0]!=rows[1]){
+
+		cout<< "Two matrixes do not follow law of multiplication."<<endl;
+	rows[4]=0;
+	columns[4]=0;
+		return -1;
+	}
+
+	int c, d, k, sum = 0;
+	//calculating and storing result.
+
+	for (c = 0; c < rows[0]; c++)
+	{
+		for (d = 0; d < columns[1]; d++)
+		{
+			for (k = 0; k < columns[0]; k++)
+			{
+				sum = sum + a1[c][k] * b1[k][d];
+			}
+
+			Mresult[c][d] = sum;
+			sum = 0;
+		}
+	}
+
+	//printing result
+	cout << "Multiplication is:" << endl;
+	for (c = 0; c < rows[0]; c++)
+	{
+		for (d = 0; d < columns[1]; d++)
+		{
+		cout << Mresult[c][d] << "\t";
+		}
+		cout << endl;
+	}
+
+	//storing rows and columns of result array
+	rows[4]=rows[0];
+	columns[4]=columns[1];
+	return 0;
+}
